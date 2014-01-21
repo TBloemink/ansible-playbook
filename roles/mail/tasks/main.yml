@@ -1,0 +1,10 @@
+---
+- name: Install postfix and dovecot with libraries
+  apt: pkg:{{item}}
+  with_items:
+    - dovecot-imapd
+    - postfix
+    - sasl2-bin
+    - libsasl2-2
+    - libsasl2-modules
+    - procmail
