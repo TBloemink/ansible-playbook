@@ -8,9 +8,10 @@
     - libsasl2-2
     - libsasl2-modules
     - procmail
-    
+
 - name: Copy main.cf
   template: src=main.cf.j2 dest=/etc/postfix/main.cf
-  
+
 - name: Copy master.cf
   template: src=master.cf.j2 dest=/etc/postfix/master.cf
+
