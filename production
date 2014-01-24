@@ -4,3 +4,5 @@ prod2.orain.org
 [searchservers]
 prod2.orain.org
 
+[mailservers]
+prod1.orain.org

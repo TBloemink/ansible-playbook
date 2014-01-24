@@ -21,3 +21,8 @@
   roles:
     - elasticsearch
 
+- hosts: mailservers
+  vars_files:
+    - ../orain_private/vars.yml
+  roles:
+    - mail
