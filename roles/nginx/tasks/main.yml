@@ -43,3 +43,9 @@
 
 - name: Copy default index.html
   copy: src=default.index.html dest=/usr/share/nginx/default/index.html owner=www-data group=www-data mode=0770
+
+- name: Set firewall rules
+  command: ufw allow http/tcp https/tcp
+  register: ufw_result
+  changed_when: "ufw_result.stdout.startswith('Rule')"
+

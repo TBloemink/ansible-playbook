@@ -6,31 +6,21 @@
   with_items:
     - denyhosts
     - fail2ban
-    - ferm
     - git
     - htop
     - lsof
     - lynis
     - mosh
-    - mysql-client
     - nano
     - netcat
     - python3
-    - python3-requests
     - python-software-properties
     - rkhunter
-    - systemd
     - tmux
     - vim
+    - ufw
     - zip
     - zsh
-
-# Hacks to force systemd-sysv to install and stay installed
-- name: Force-install systemd-sysv
-  raw: yes 'Yes, do as I say!' | apt-get install --force-yes systemd-sysv
-
-- name: Hold systemd-sysv
-  shell: echo systemd-sysv hold | dpkg --set-selections
 
 # Don't edit without validating first
 - name: Allow users in the sudo group to run sudo without a password
@@ -43,11 +33,6 @@
     - { name: 'kudu', group: 'sudo' }
     - { name: 'addshore', group: 'sudo' }
     - { name: 'johnflewis', group: 'sudo' }
-
-- name: Copy ferm firewall rules
-  copy: src=ferm.conf dest=/etc/ferm/ferm.conf
-  notify:
-    - Reload ferm
 
 - name: Copy backup.sh
   template: src=backup.sh dest=/root/backup.sh
@@ -66,3 +51,27 @@
   copy: src={{item}} dest=/root/{{item|basename}} owner=root group=root mode=770
   with_fileglob:
     - ./quickscripts/*
+
+- name: Set firewall rules
+  command: ufw allow ssh/tcp 60000:61000/udp
+  register: ufw_result
+  changed_when: "ufw_result.stdout.startswith('Rule')"
+
+- name: Check status of ufw
+  command: ufw status
+  register: ufw_status
+  changed_when: False # never report as "changed"
+
+- name: Check config of ufw
+  command: cat /etc/ufw/ufw.conf
+  register: ufw_config
+  changed_when: False # never report as "changed"
+
+- name: Disable logging (workaround for known bug in Debian 7)
+  command: ufw logging off
+  when: "ansible_lsb['codename'] == 'wheezy' and 'LOGLEVEL=off' not in ufw_config.stdout"
+
+- name: Enable ufw
+  command: ufw --force enable
+  when: "ufw_status.stdout.startswith('Status: inactive') or 'ENABLED=yes' not in ufw_config.stdout"
+

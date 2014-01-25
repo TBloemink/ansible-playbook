@@ -2,6 +2,9 @@
 - name: Create user "www-scripts"
   user: name=www-scripts group=www-data shell=/bin/zsh
 
+- name: Install python-requests
+  apt: pkg=python3-requests
+
 - name: Check out latest stable WMF branch of MediaWiki
   git: repo=https://github.com/Orain/mediawiki-core.git
        dest=/usr/share/nginx/.orain.org/w
