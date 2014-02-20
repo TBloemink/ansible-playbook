@@ -17,11 +17,6 @@
     - php5-intl
     - php5-mysqlnd
 
-# http://wiki.nginx.org/Pitfalls#Passing_Uncontrolled_Requests_to_PHP
-- name: Disable FastCGI path info fix
-  lineinfile: dest=/etc/php5/fpm/php.ini regexp='^;?cgi.fix_pathinfo' line='cgi.fix_pathinfo = 0;'
-  notify: Reload php-fpm
-
 - name: Copy php-fpm pool configuration
   copy: src={{item}} dest=/etc/php5/fpm/pool.d/{{item|basename}} backup=yes
   with_fileglob:

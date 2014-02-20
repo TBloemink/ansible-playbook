@@ -12,11 +12,16 @@
 
 server {
 {% if site == 'all.orain.org' %}
-	server_name *.orain.org espiral.org wikiconstitucio.org localhost;
+	server_name *.orain.org wikiconstitucio.org localhost;
+{% endif %}
+{% if site == 'espiral.org' %}
+	server_name espiral.org;
+	include /etc/nginx/sites-enabled-agnostic/all.orain.org;
+{% else %}
+	include /etc/nginx/sites-enabled-agnostic/{{site}};
 {% endif %}
 	listen [::]:80 {{ listen_parameters() }};
 {{ favicon_config() }}
-	include /etc/nginx/sites-enabled-agnostic/{{site}};
 
 	add_header Content-Security-Policy "default-src 'self' http://d326vv62q24mzw.cloudfront.net; script-src 'self' http://d326vv62q24mzw.cloudfront.net http://bits.orain.org http://login.orain.org 'unsafe-inline' 'unsafe-eval' http://bits.wikimedia.org http://challenge.asirra.com; style-src 'self' http://d326vv62q24mzw.cloudfront.net 'unsafe-inline' http://fonts.googleapis.com; font-src https://themes.googleusercontent.com; frame-src http://*.youtube.com; object-src http://*.youtube.com; img-src 'self' data: http://d326vv62q24mzw.cloudfront.net http://upload.wikimedia.org http://challenge.asirra.com http://s3.amazonaws.com";
 }
@@ -25,9 +30,16 @@ server {
 {% if site == 'all.orain.org' %}
 	server_name *.orain.org localhost;
 {% endif %}
+{% if site == 'espiral.org' %}
+	server_name espiral.org;
+	ssl_certificate {{espiral_ssl_cert_path}};
+	include /etc/nginx/sites-enabled-agnostic/all.orain.org;
+{% else %}
+	ssl_certificate {{ssl_cert_path}};
+	include /etc/nginx/sites-enabled-agnostic/{{site}};
+{% endif %}
 	listen [::]:443 ssl {{ listen_parameters() }};
 {{ favicon_config() }}
-	include /etc/nginx/sites-enabled-agnostic/{{site}};
 
 	add_header Content-Security-Policy "default-src 'self' https://d326vv62q24mzw.cloudfront.net; script-src 'self' https://d326vv62q24mzw.cloudfront.net https://bits.orain.org https://login.orain.org 'unsafe-inline' 'unsafe-eval' https://bits.wikimedia.org https://challenge.asirra.com; style-src 'self' https://d326vv62q24mzw.cloudfront.net 'unsafe-inline' https://fonts.googleapis.com; font-src https://themes.googleusercontent.com; frame-src https://*.youtube.com; object-src https://*.youtube.com; img-src 'self' data: https://d326vv62q24mzw.cloudfront.net https://upload.wikimedia.org https://challenge.asirra.com https://s3.amazonaws.com";
 

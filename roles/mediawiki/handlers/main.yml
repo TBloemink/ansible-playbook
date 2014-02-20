@@ -1,13 +1,16 @@
+- name: Rebuild localisation cache
+  command: /usr/bin/php /usr/share/nginx/.orain.org/w/maintenance/rebuildLocalisationCache.php --wiki extloadwiki
+
 - name: Clear APC cache
   command: /usr/bin/wget -qO- {{apc_clear_script}}
   register: clear_apc_cache
-  failed_when: clear_apc_cache.stdout != "{success:true}"
-
-- name: Rebuild localisation cache
-  command: /usr/bin/php /usr/share/nginx/.orain.org/w/maintenance/rebuildLocalisationCache.php --wiki extloadwiki
+  failed_when: clear_apc_cache.stdout.find('true') == -1
 
 - name: Install Validator dependencies using Composer
   shell: "cd /usr/share/nginx/.orain.org/w/extensions/Validator && /usr/bin/composer.phar install"
 
-- name: Notify IRC of LocalSettings update
+- name: Notify IRC of Mediawiki update
   shell: "/root/notify_irc.sh"
+
+- name: Mediawiki submodule fileMode false
+  shell: "cd /usr/share/nginx/.orain.org/w/ && git submodule foreach --recursive git config core.fileMode false"

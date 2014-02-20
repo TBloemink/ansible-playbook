@@ -16,7 +16,12 @@
     - python3
     - python-software-properties
     - rkhunter
+<<<<<<< HEAD
+||||||| merged common ancestors
+    - systemd
+=======
     - sudo
+>>>>>>> master
     - tmux
     - vim
     - ufw
@@ -29,8 +34,29 @@
               regexp='^\%sudo'
               line='%sudo ALL=(ALL) NOPASSWD:ALL'
 
+<<<<<<< HEAD
+- include: create_user.yml user={{item.name}} group={{item.group}}
+  with_items:
+    - { name: 'kudu', group: 'sudo' }
+    - { name: 'addshore', group: 'sudo' }
+    - { name: 'johnflewis', group: 'sudo' }
+
+||||||| merged common ancestors
+- include: create_user.yml user={{item.name}} group={{item.group}}
+  with_items:
+    - { name: 'kudu', group: 'sudo' }
+    - { name: 'addshore', group: 'sudo' }
+    - { name: 'johnflewis', group: 'sudo' }
+
+- name: Copy ferm firewall rules
+  copy: src=ferm.conf dest=/etc/ferm/ferm.conf
+  notify:
+    - Reload ferm
+
+=======
 - include: create_user.yml
 
+>>>>>>> master
 - name: Copy backup.sh
   template: src=backup.sh dest=/root/backup.sh
 
@@ -48,6 +74,33 @@
   copy: src={{item}} dest=/root/{{item|basename}} owner=root group=root mode=770
   with_fileglob:
     - ./quickscripts/*
+<<<<<<< HEAD
+
+- name: Set firewall rules
+  command: ufw allow ssh/tcp 60000:61000/udp
+  register: ufw_result
+  changed_when: "ufw_result.stdout.startswith('Rule')"
+
+- name: Check status of ufw
+  command: ufw status
+  register: ufw_status
+  changed_when: False # never report as "changed"
+
+- name: Check config of ufw
+  command: cat /etc/ufw/ufw.conf
+  register: ufw_config
+  changed_when: False # never report as "changed"
+
+- name: Disable logging (workaround for known bug in Debian 7)
+  command: ufw logging off
+  when: "ansible_lsb['codename'] == 'wheezy' and 'LOGLEVEL=off' not in ufw_config.stdout"
+
+- name: Enable ufw
+  command: ufw --force enable
+  when: "ufw_status.stdout.startswith('Status: inactive') or 'ENABLED=yes' not in ufw_config.stdout"
+
+||||||| merged common ancestors
+=======
 
 - name: Set firewall rules
   command: ufw allow {{item}}
@@ -75,3 +128,4 @@
   command: ufw --force enable
   when: "ufw_status.stdout.startswith('Status: inactive') or 'ENABLED=yes' not in ufw_config.stdout"
 
+>>>>>>> master

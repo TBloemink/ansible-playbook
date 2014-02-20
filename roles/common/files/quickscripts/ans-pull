@@ -1,2 +1,4 @@
 #!/bin/sh
-/usr/local/bin/ansible-pull -d /root/ansible-playbook -i /root/ansible-playbook/production -U https://github.com/Orain/ansible-playbook.git -C master
+#Pulls the latest anisble playbook from github
+
+ansible all -i "localhost," -c local -m git -a "name=https://github.com/Orain/ansible-playbook.git dest=/root/ansible-playbook version=master"

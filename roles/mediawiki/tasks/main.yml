@@ -10,11 +10,10 @@
        dest=/usr/share/nginx/.orain.org/w
        version=REL1_22
   notify:
-    - Clear APC cache
     - Rebuild localisation cache
-    - Notify IRC of LocalSettings update
-  register: git_mediawiki_output
-  changed_when: git_mediawiki_output.before != git_mediawiki_output.after
+    - Mediawiki submodule fileMode false
+    - Clear APC cache
+    - Notify IRC of Mediawiki update
 
 - name: Install Composer
   action: shell curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ creates=/usr/bin/composer.phar
@@ -35,9 +34,9 @@
   with_fileglob:
     - ./*.php.j2
   notify:
-    - Clear APC cache
     - Rebuild localisation cache
-    - Notify IRC of LocalSettings update
+    - Notify IRC of Mediawiki update
+    - Clear APC cache
   when: mw_localsettings_valid.rc == 0
 
 - name: Copy MediaWiki settings from files
@@ -73,14 +72,6 @@
         minute="0"
         hour="*/3"
         job="/usr/bin/php /usr/share/nginx/.orain.org/w/maintenance/updateSpecialPages.php --wiki allthetropeswiki > /var/log/mediawiki/updateSpecialPages.log 2>&1"
-
-- name: Download MediaWiki extensions
-  command: >
-            git submodule update --init --remote
-            chdir=/usr/share/nginx/.orain.org/w
-  notify:
-    - Install Validator dependencies using Composer
-    - Rebuild localisation cache
 
 - name: Copy quickscripts
   copy: src={{item}} dest=/root/{{item|basename}} owner=root group=root mode=770

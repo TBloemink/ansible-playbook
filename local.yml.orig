@@ -20,15 +20,18 @@
   roles:
     - elasticsearch
 
+<<<<<<< HEAD
+- hosts: mailservers
+  vars_files:
+    - ../orain_private/vars.yml
+  roles:
+    - mail
+||||||| merged common ancestors
+=======
 - hosts: dbservers
   vars_files:
     - ../orain_private/vars.yml
   roles:
     - mariadb
 
-- hosts: mailservers
-  vars_files:
-    - ../orain_private/vars.yml
-  roles:
-    - mail
-
+>>>>>>> master

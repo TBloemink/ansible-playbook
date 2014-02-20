@@ -49,7 +49,6 @@ http {
 
 	resolver 8.8.4.4 8.8.8.8;
 
-	ssl_certificate {{ssl_cert_path}};
 	ssl_certificate_key {{ssl_cert_key_path}};
 	ssl_ciphers "EECDH+AESGCM:EECDH:EDH+AESGCM:EDH:HIGH+AESGCM:HIGH:+SHA:+RC4:RC4 !aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS:!kECDH:!ECDSA";
 	ssl_prefer_server_ciphers on;
