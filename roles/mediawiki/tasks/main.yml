@@ -46,8 +46,9 @@
 - name: Copy {{item}}
   copy: src={{item}} dest=/home/www-scripts owner=www-scripts group=www-data mode=770 backup=yes
   with_items:
-    - get_db_list.py
     - db_loop.sh
+    - get_db_list.py
+    - upload_dumps.sh
 
 - name: Copy logrotate configuration
   copy: src="./logrotate.d/mediawiki" dest=/etc/logrotate.d
@@ -57,6 +58,14 @@
 
 - name: Create a cronjob for get_db_list.py
   cron: name="Get DB list" user="www-scripts" job="python3 ~/get_db_list.py"
+
+- name: Create a cronjob for upload_dumps.sh
+  cron: name="Upload dumps"
+        user="www-scripts"
+        minute="0"
+        hour="0"
+        day="0"
+        job="~/upload_dumps.sh"
 
 - name: Create a cronjob for the MediaWiki job queue
   cron: name="MediaWiki job queue"
@@ -75,3 +84,4 @@
   copy: src={{item}} dest=/root/{{item|basename}} owner=root group=root mode=770
   with_fileglob:
     - ./quickscripts/*
+
