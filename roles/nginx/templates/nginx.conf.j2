@@ -59,5 +59,12 @@ http {
 	ssl_trusted_certificate issuer.crt;
 
 	include /etc/nginx/sites-enabled/all;
+
+	upstream mediawiki {
+		least_conn;
+
+		server	prod4.orain.org;
+		server	prod5.orain.org;
+	}
 }
 
