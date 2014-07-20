@@ -35,6 +35,6 @@ location ^~ /wiki {
 	proxy_set_header Host $host;
 }
 
-location = /wiki/Special:Upload {
-	proxy_pass http://prod4.orain.org;
+location ~ ^/o/(.*) {
+	return 301 /w/index.php?title=Special:UrlRedirector/$1;
 }

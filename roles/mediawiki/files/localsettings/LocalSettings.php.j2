@@ -1206,6 +1206,27 @@ $wgConf->settings = array(
 	),
 	// /Translate
 
+	// UrlShortener
+	'wgUrlShortenerTemplate' => array(
+		'default' => true,
+	),
+	'wgUrlShortenerTemplate' => array(
+		'default' => '/o/$1',
+	),
+	'wgUrlShortenerDBName' => array(
+		'default' => 'metawiki',
+	),
+	'wgUrlShortenerDomainsWhitelist' => array(
+		'default' => array(
+			'(.*\.)?orain\.org' => true,
+			'degu.wiki' => true,
+			'espiral.org' => true,
+			'wikiconstitucio.org' => true,
+			'wiki.revi.pe.kr' => true,
+		),
+	),
+	// /UrlShortener
+
 	// Users
 	'wgAllowUserJs' => array(
 		'default' => true,

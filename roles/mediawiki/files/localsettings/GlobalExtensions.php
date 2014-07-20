@@ -43,3 +43,4 @@ require_once( "$IP/skins/foreground/foreground.php" );
 require_once( "$IP/skins/monaco/monaco.php" );
 require_once( "$IP/extensions/WikiLove/WikiLove.php" );
 require_once( "$IP/extensions/NativeSvgHandler/NativeSvgHandler.php" );
+require_once( "$IP/extensions/UrlShortener/UrlShortener.php" );
