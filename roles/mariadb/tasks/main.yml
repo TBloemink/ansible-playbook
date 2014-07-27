@@ -38,3 +38,8 @@
   command: ufw allow from 107.191.118.238 to any port 3306
   register: ufw_result_prod5
   changed_when: "'Rule added' in ufw_result_prod5.stdout"
+
+- name: Set firewall rule for useranalysis access
+  command: ufw allow from 208.80.155.255 to any port 3306
+  register: ufw_result_ua
+  changed_when: "'Rule added' in ufw_result_ua.stdout"

@@ -23,7 +23,7 @@ server {
 	listen [::]:80 {{ listen_parameters() }};
 {{ favicon_config() }}
 
-	add_header Content-Security-Policy "default-src 'self' http://d326vv62q24mzw.cloudfront.net; script-src 'self' http://d326vv62q24mzw.cloudfront.net http://bits.orain.org http://login.orain.org 'unsafe-inline' 'unsafe-eval' http://bits.wikimedia.org http://challenge.asirra.com  http://tools.wmflabs.org; style-src 'self' http://d326vv62q24mzw.cloudfront.net 'unsafe-inline' http://fonts.googleapis.com; font-src http://*.orain.org https://themes.googleusercontent.com; frame-src http://*.youtube.com; object-src http://*.youtube.com; img-src 'self' data: http://d326vv62q24mzw.cloudfront.net http://upload.wikimedia.org http://challenge.asirra.com http://s3.amazonaws.com http://static.orain.org http://bits.orain.org";
+	add_header Content-Security-Policy "default-src 'self' http://d326vv62q24mzw.cloudfront.net; script-src 'self' http://d326vv62q24mzw.cloudfront.net http://bits.orain.org https://login.orain.org 'unsafe-inline' 'unsafe-eval' http://bits.wikimedia.org http://challenge.asirra.com  http://tools.wmflabs.org; style-src 'self' http://d326vv62q24mzw.cloudfront.net 'unsafe-inline' http://fonts.googleapis.com; font-src http://*.orain.org https://themes.googleusercontent.com; frame-src http://*.youtube.com; object-src http://*.youtube.com; img-src 'self' data: http://d326vv62q24mzw.cloudfront.net http://upload.wikimedia.org http://challenge.asirra.com http://s3.amazonaws.com http://static.orain.org http://bits.orain.org";
 }
 
 server {
@@ -41,7 +41,7 @@ server {
 	listen [::]:443 ssl {{ listen_parameters() }};
 {{ favicon_config() }}
 
-	add_header Content-Security-Policy "default-src 'self' https://d326vv62q24mzw.cloudfront.net; script-src 'self' https://d326vv62q24mzw.cloudfront.net https://bits.orain.org https://login.orain.org 'unsafe-inline' 'unsafe-eval' https://bits.wikimedia.org https://challenge.asirra.com  https://tools.wmflabs.org; style-src 'self' https://d326vv62q24mzw.cloudfront.net 'unsafe-inline' https://fonts.googleapis.com; font-src https://*.orain.org https://themes.googleusercontent.com; frame-src https://*.youtube.com; object-src https://*.youtube.com; img-src 'self' data: https://d326vv62q24mzw.cloudfront.net https://upload.wikimedia.org https://challenge.asirra.com https://s3.amazonaws.com https://static.orain.org  http://bits.orain.org";
+	add_header Content-Security-Policy "default-src 'self' https://d326vv62q24mzw.cloudfront.net; script-src 'self' https://d326vv62q24mzw.cloudfront.net https://bits.orain.org https://login.orain.org 'unsafe-inline' 'unsafe-eval' https://bits.wikimedia.org https://challenge.asirra.com  https://tools.wmflabs.org; style-src 'self' https://d326vv62q24mzw.cloudfront.net 'unsafe-inline' https://fonts.googleapis.com; font-src https://*.orain.org https://themes.googleusercontent.com; frame-src https://*.youtube.com; object-src https://*.youtube.com; img-src 'self' data: https://d326vv62q24mzw.cloudfront.net https://upload.wikimedia.org http://upload.wikimedia.org https://challenge.asirra.com https://s3.amazonaws.com https://static.orain.org https://bits.orain.org";
 
 	# HSTS for 2 months
 	add_header Strict-Transport-Security "max-age=5256000; includeSubDomains";

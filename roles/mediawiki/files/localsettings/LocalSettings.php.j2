@@ -67,12 +67,24 @@ define( 'NS_WORKSPACE', 524 );
 define( 'NS_WORKSPACE_TALK', 525 );
 // /councilwiki
 
+// frmodamobwiki
+define( 'NS_PORTAIL', 516 );
+define( 'NS_PORTAIL_TALK', 517 );
+define( 'NS_PROJET', 518 );
+define( 'NS_PROJET_TALK', 519 );
+// /frmodamobwiki
+
 // levelswiki
 define( 'NS_GUIDE', 258 );
 define( 'NS_GUIDE_TALK', 259 );
 define( 'NS_MOD', 260 );
 define( 'NS_MOD_TALK', 261 );
 // /levelswiki
+
+// Reviwiki
+define( 'NS_SERVER', 526);
+define( 'NS_SERVER_TALK', 527);
+// /Reviwiki
 
 // wikinambaswiki
 define( 'NS_OFICINA', 508 );
@@ -85,12 +97,6 @@ define( 'NS_ESTUDIO', 514 );
 define( 'NS_ESTUDIO_TALK', 515 );
 // /wikinambaswiki
 
-// frmodamobwiki
-define( 'NS_PORTAIL', 516 );
-define( 'NS_PORTAIL_TALK', 517 );
-define( 'NS_PROJET', 518 );
-define( 'NS_PROJET_TALK', 519 );
-// /frmodamobwiki
 
 # Load the 'globalextensions' here
 require_once( "$IP/GlobalExtensions.php" );
@@ -145,6 +151,8 @@ $wgConf->settings = array(
 	// BetaFeatures
 	'wmgUseBetaFeatures' => array(
 		'default' => false,
+		'allthetropeswiki' => true,
+		'extloadwiki' => true,
 	),
 	// /BetaFeatures
 
@@ -768,6 +776,10 @@ $wgConf->settings = array(
 			NS_MOD => 'Mod',
 			NS_MOD_TALK => 'Mod_talk',
 		),
+        	'reviwiki' => array(
+            		NS_SERVER => '서버',
+            		NS_SERVER_TALK => '서버토론',
+        	),
 		'wikinambaswiki' => array(
 			NS_OFICINA => 'Oficina',
 			NS_OFICINA_TALK => 'Oficina_Discussão',
@@ -996,6 +1008,9 @@ $wgConf->settings = array(
 				'userrights' => true,
 				'userrights-interwiki' => true,
 			),
+			'sysop' => array(
+				'interwiki' => true, // Allow sysops to edit interwiki data -John
+			),
 			'wikicreator' => array(
 				'createwiki' => true,
 			),
@@ -1149,9 +1164,9 @@ $wgConf->settings = array(
 		'default' => "//$wmgUploadHostname/meta.orain.org/images/c/c6/Orain.png",
 		'allthetropeswiki' => "//$wmgUploadHostname/meta.orain.org/images/a/a6/ATTLogo.png",
 		'botwiki' => "//$wmgUploadHostname/meta.orain.org/images/6/65/BotWiki_logo.png",
-		'dangsunsnwiki' => '//upload.wikimedia.org/wikipedia/commons/e/e8/Kd-logo.png',
 		'computerclanwiki' => '//upload.wikimedia.org/wikipedia/commons/f/f7/CC_Wiki_Graphic_Mark_Small.png',
-		'nationalewiki' => "//$wmgUploadHostname/nationale.orain.org/images/2/29/Logo_of_the_Encyclopedia_Nationale.png",
+               'dangsunsnwiki' => '//upload.wikimedia.org/wikipedia/commons/e/e8/Kd-logo.png',
+               'deguwiki' => '//$wmgUploadHostname/meta.orain.org/images/b/ba/Deguwikilogo.png',
 		'enmodamobwiki' => "//$wmgUploadHostname/meta.orain.org/images/d/d6/Modamob-logo.png",
 		'frmodamobwiki' => "//$wmgUploadHostname/meta.orain.org/images/d/d6/Modamob-logo.png",
 		'grayhawkwiki' => '//upload.wikimedia.org/wikipedia/commons/4/49/GrayhawkPaladinsLogo_%28small%29.png',
@@ -1159,6 +1174,7 @@ $wgConf->settings = array(
 		'levelswiki' => '//upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Wikilevels_logo_text.png/135px-Wikilevels_logo_text.png',
 		'mediawikitesterswiki' => '//upload.wikimedia.org/wikipedia/commons/9/9a/MediaWikiTestersWiki.png',
 		'mwmwiki' => "//$wmgUploadHostname/mwm.orain.org/images/a/a6/Wiki-Logo.png",
+        'nationalewiki' => "//$wmgUploadHostname/nationale.orain.org/images/2/29/Logo_of_the_Encyclopedia_Nationale.png",
 		'peachywiki' => '//upload.wikimedia.org/wikipedia/commons/5/51/PeachyFrameworkLogo.png',
 		'pigawiki' => "//$wmgUploadHostname/piga.orain.org/images/2/23/PigaLore.png",
 		'reviwiki' => '//upload.wikimedia.org/wikipedia/commons/thumb/5/53/Server-multiple.svg/135px-Server-multiple.svg.png',
@@ -1218,11 +1234,11 @@ $wgConf->settings = array(
 	),
 	'wgUrlShortenerDomainsWhitelist' => array(
 		'default' => array(
-			'(.*\.)?orain\.org' => true,
-			'degu.wiki' => true,
-			'espiral.org' => true,
-			'wikiconstitucio.org' => true,
-			'wiki.revi.pe.kr' => true,
+			'(.*\.)?orain\.org',
+			'degu\.wiki',
+			'espiral\.org',
+			'wikiconstitucio\.org',
+			'wiki\.revi\.pe\.kr'
 		),
 	),
 	// /UrlShortener

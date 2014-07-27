@@ -38,6 +38,14 @@
   with_fileglob:
     - ./favicons/*.ico
 
+- name: Create directoy for error pages
+  action: file path=/usr/share/nginx/errorpages state=directory owner=www-data group=www-data mode=0770
+
+- name: Copy error pages
+  copy: src={{item}} dest=/usr/share/nginx/errorpages owner=www-data group=www-data mode=0770
+  with_fileglob:
+    - ./errorpages/*.*
+
 - name: Copy default robots.txt
   copy: src=robots.txt dest=/usr/share/nginx/default owner=www-data group=www-data mode=0770
 

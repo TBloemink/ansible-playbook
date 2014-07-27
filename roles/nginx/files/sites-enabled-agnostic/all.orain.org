@@ -2,6 +2,7 @@ root /usr/share/nginx/.orain.org;
 index index.html index.htm index.php;
 
 location = / {
+	ssi on;
 	return 301 /wiki/;
 }
 
@@ -33,6 +34,15 @@ location ^~ /wiki {
 
 	proxy_pass http://mediawiki;
 	proxy_set_header Host $host;
+}
+
+error_page 500 /500.html;
+location = /500.html {
+	root /usr/share/nginx/errorpages;
+}
+error_page 502 /502.html;
+location = /502.html {
+	root /usr/share/nginx/errorpages;
 }
 
 location ~ ^/o/(.*) {
